@@ -1,8 +1,15 @@
 """Image handling."""
 
 import abc
+import enum
+import inspect
 import os
 import pygame
+
+
+class PathType(enum.Enum):
+    LOCAL = enum.auto()  # load from a local img/ directory
+    COMMON = enum.auto()  # load from common/img/
 
 
 class Factory(abc.ABC):
@@ -19,9 +26,24 @@ class Factory(abc.ABC):
         pass
 
 
+def _get_img_dir(path_type):
+    if path_type is PathType.LOCAL:
+        for frame in inspect.stack():
+            if os.path.basename(frame.filename) != 'img.py':
+                ref_file = frame.filename
+                break
+        else:
+            assert False, 'no local caller found'
+    else:
+        assert path_type is PathType.COMMON
+        ref_file = __file__
+    return os.path.join(os.path.dirname(ref_file), 'img')
+
+
 class PngFactory(Factory):
 
-    def __init__(self, name, screen, position=(0, 0), shift=(0, 0)):
+    def __init__(self, name, screen, position=(0, 0), shift=(0, 0),
+                 path_type=PathType.LOCAL):
         """Initializer for a png image.
 
         Args:
@@ -32,7 +54,7 @@ class PngFactory(Factory):
             position by.
         """
         super().__init__(screen)
-        path = os.path.join(os.path.dirname(__file__), 'img', f'{name}.png')
+        path = os.path.join(_get_img_dir(path_type), f'{name}.png')
         self._img = pygame.image.load(path).convert_alpha()
         self._pos = (position[0] + self._img.get_width() * shift[0],
                      position[1] + self._img.get_height() * shift[1])
