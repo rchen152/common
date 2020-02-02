@@ -95,8 +95,7 @@ class GameStateTestCase(ImgTestCase):
                 'pygame.font',
             )}
         self.mocks = {mod: patch.start() for mod, patch in self.patches.items()}
-        self.mocks['pygame.font'].SysFont.return_value.size.return_value = (
-            0, 0)
+        pygame.font.SysFont.return_value.size.return_value = (0, 0)
 
     def tearDown(self):
         super().tearDown()
