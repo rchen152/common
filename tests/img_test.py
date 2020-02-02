@@ -25,12 +25,6 @@ class RectFactoryTest(unittest.TestCase):
     def test_nocollidepoint(self):
         self.assertFalse(self.rect.collidepoint((0, 0)))
 
-    def test_colliderect(self):
-        self.assertTrue(self.rect.colliderect(pygame.Rect(2, 2, 10, 10)))
-
-    def test_nocolliderect(self):
-        self.assertFalse(self.rect.colliderect(pygame.Rect(0, 0, 1, 1)))
-
 
 class PngFactoryTest(test_utils.ImgTestCase):
 

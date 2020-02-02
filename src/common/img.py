@@ -34,9 +34,6 @@ class RectFactory(Factory):
     def collidepoint(self, pos):
         return self.RECT.collidepoint(pos)
 
-    def colliderect(self, rect):
-        return self.RECT.colliderect(rect)
-
 
 def _get_img_dir(path_type):
     if path_type is PathType.LOCAL:
