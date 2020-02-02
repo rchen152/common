@@ -59,12 +59,19 @@ class MockEvent:
 
 class MockScreen:
 
-    def __init__(self):
+    def __init__(self, rect=None):
+        self.rect = rect or pygame.Rect(0, 0, 0, 0)
         self.fullscreen = False
         self.mock = unittest.mock.MagicMock()
 
     def get_flags(self):
         return FULLSCREEN if self.fullscreen else 0
+
+    def get_rect(self):
+        return self.rect
+
+    def subsurface(self, rect):
+        return MockScreen(rect)
 
     def __getattr__(self, name):
         return getattr(self.mock, name)
