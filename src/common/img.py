@@ -26,6 +26,18 @@ class Factory(abc.ABC):
         pass
 
 
+class RectFactory(Factory):
+    """A factory bounded by a rectangle."""
+
+    RECT: pygame.Rect
+
+    def collidepoint(self, pos):
+        return self.RECT.collidepoint(pos)
+
+    def colliderect(self, rect):
+        return self.RECT.colliderect(rect)
+
+
 def _get_img_dir(path_type):
     if path_type is PathType.LOCAL:
         for frame in inspect.stack():
@@ -40,7 +52,7 @@ def _get_img_dir(path_type):
     return os.path.join(os.path.dirname(ref_file), 'img')
 
 
-class PngFactory(Factory):
+class PngFactory(RectFactory):
 
     def __init__(self, name, screen, position=(0, 0), shift=(0, 0),
                  path_type=PathType.LOCAL):
@@ -58,12 +70,10 @@ class PngFactory(Factory):
         self._img = pygame.image.load(path).convert_alpha()
         self._pos = (position[0] + self._img.get_width() * shift[0],
                      position[1] + self._img.get_height() * shift[1])
+        self.RECT = pygame.Rect(self._pos, self._img.get_size())
 
     def draw(self):
         self._screen.blit(self._img, self._pos)
-
-    def collidepoint(self, pos):
-        return pygame.Rect(self._pos, self._img.get_size()).collidepoint(pos)
 
 
 def load(*args, factory=PngFactory, **kwargs):
