@@ -71,7 +71,7 @@ class MockScreen:
         return self.rect
 
     def subsurface(self, rect):
-        return MockScreen(rect)
+        return MockScreen(pygame.Rect(0, 0, rect.w, rect.h))
 
     def __getattr__(self, name):
         return getattr(self.mock, name)
