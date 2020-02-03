@@ -65,12 +65,12 @@ class PngFactory(RectFactory):
         super().__init__(screen)
         path = os.path.join(_get_img_dir(path_type), f'{name}.png')
         self._img = pygame.image.load(path).convert_alpha()
-        self._pos = (position[0] + self._img.get_width() * shift[0],
-                     position[1] + self._img.get_height() * shift[1])
-        self.RECT = pygame.Rect(self._pos, self._img.get_size())
+        pos = (position[0] + self._img.get_width() * shift[0],
+               position[1] + self._img.get_height() * shift[1])
+        self.RECT = pygame.Rect(pos, self._img.get_size())
 
     def draw(self):
-        self._screen.blit(self._img, self._pos)
+        self._screen.blit(self._img, self.RECT.topleft)
 
 
 def load(*args, factory=PngFactory, **kwargs):
