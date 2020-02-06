@@ -25,6 +25,11 @@ class RectFactoryTest(unittest.TestCase):
     def test_nocollidepoint(self):
         self.assertFalse(self.rect.collidepoint((0, 0)))
 
+    def test_move(self):
+        pos = self.rect.RECT.topleft
+        self.rect.move((1, 1))
+        self.assertEqual(self.rect.RECT.topleft, (pos[0] + 1, pos[1] + 1))
+
 
 class PngFactoryTest(test_utils.ImgTestCase):
 
