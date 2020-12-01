@@ -3,7 +3,7 @@
 import os
 from setuptools import find_packages, setup
 
-_VERSION = '0.5.1'
+_VERSION = '0.5.2'
 
 
 def get_long_description():
@@ -27,5 +27,5 @@ setup(
         'Operating System :: POSIX :: Linux',
     ],
     python_requires='>=3.6',
-    install_requires=['pygame==1.9.6'],
+    install_requires=['pygame'],
 )
