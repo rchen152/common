@@ -1,5 +1,6 @@
 """Test utilities."""
 
+import sys
 import pygame
 from pygame.locals import *
 import unittest.mock
@@ -39,7 +40,7 @@ class PygameImagePatch:
         return self.__enter__()
 
     def stop(self):
-        return self.__exit__()
+        return self.__exit__(*sys.exc_info())
 
 
 def patch(module, *args, **kwargs):
