@@ -26,6 +26,6 @@ setup(
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: POSIX :: Linux',
     ],
-    python_requires='>=3.6',
-    install_requires=['pygame'],
+    python_requires='>=3.10',
+    install_requires=['pygame>=2.1.2'],
 )
