@@ -55,6 +55,7 @@ class GameState(abc.ABC):
 
     def run(self):
         while self.active:
+            pygame.display.init()
             for event in pygame.event.get():
                 for handle in self._event_handlers:
                     consumed = handle(event)
