@@ -61,6 +61,7 @@ class MockEvent:
 class MockScreen:
 
     def __init__(self, rect=None):
+        pygame.init()
         self.rect = rect or pygame.Rect(0, 0, 0, 0)
         self.fullscreen = False
         self.mock = unittest.mock.MagicMock()

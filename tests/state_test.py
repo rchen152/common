@@ -99,7 +99,6 @@ class GameStateTest(unittest.TestCase):
 class TitleCardTest(test_utils.ImgTestCase):
 
     def test_init(self):
-        pygame.init()
         with test_utils.patch('pygame.display', autospec=True):
             with test_utils.patch('pygame.transform', autospec=True):
                 state.TitleCard(self.screen)
